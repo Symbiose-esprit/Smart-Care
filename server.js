@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const app = require('./app');
@@ -9,8 +10,7 @@ const DB = process.env.DATABASE.replace(
   process.env.DATABASE_PASSWORD
 );
 
-mongoose.connect(DB, {})
-  .then(() => console.log('DB Connected Successfully'));
+mongoose.connect(DB, {}).then(() => console.log('DB Connected Successfully'));
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -58,6 +58,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
 });
+
 const PatientSchema = new mongoose.Schema({
   insurance: {
     type: String,
@@ -84,10 +85,60 @@ const PatientSchema = new mongoose.Schema({
     required: true,
   },
 });
-// eslint-disable-next-line no-unused-vars
+
 const User = mongoose.model('User', UserSchema);
-// eslint-disable-next-line no-unused-vars
-const Patient = mongoose.model('User', PatientSchema);
+
+//DOCTOR
+const DoctorSchema = new mongoose.Schema({
+  specialty: {
+    type: String,
+    required: true,
+  },
+  office_address: {
+    type: String,
+    required: true,
+  },
+  office_number: {
+    type: String,
+    required: true,
+  },
+  doctorate: {
+    type: String,
+    required: true,
+  },
+  consult_price: {
+    type: Number,
+    required: true,
+  },
+  coords: {
+    type: Number,
+    required: true,
+  },
+});
+
+const Doctor = mongoose.model('Doctor', DoctorSchema);
+
+//MedicalDocs
+const MedicalDocsSchema = new mongoose.Schema({
+  description: {
+    type: String,
+    required: true,
+  },
+  dateofrelease: {
+    type: Date,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+});
+
+const MedicalDocs = mongoose.model('MedicalDocs', MedicalDocsSchema);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
