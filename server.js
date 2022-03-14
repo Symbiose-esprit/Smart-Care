@@ -11,7 +11,7 @@ const DB = process.env.DATABASE.replace(
 );
 
 mongoose.connect(DB, {}).then(() => console.log('DB Connected Successfully'));
-
+//USER
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -58,7 +58,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
 });
-
+//PATIENT
 const PatientSchema = new mongoose.Schema({
   insurance: {
     type: String,
@@ -140,6 +140,28 @@ const MedicalDocsSchema = new mongoose.Schema({
 
 const MedicalDocs = mongoose.model('MedicalDocs', MedicalDocsSchema);
 
+const testUser = new User({
+  name: 'Maryem',
+  lastname: 'Bessrour',
+  login: 'Test',
+  password: 'test',
+  email: 'test',
+  role: 'test',
+  sex: 'test',
+  address: 'test',
+  telephone: '71555222',
+  dateofbirth: '1999-03-03',
+  age: 15,
+});
+
+testUser
+  .save()
+  .then((doc) => {
+    console.log(doc);
+  })
+  .catch((err) => {
+    console.log('error:', err);
+  });
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
