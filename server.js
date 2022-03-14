@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const app = require('./app');
+
 dotenv.config({ path: './config.env' });
 
 const DB = process.env.DATABASE.replace(
@@ -14,104 +15,79 @@ mongoose.connect(DB, {})
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   lastname: {
     type: String,
-    required: true
+    required: true,
   },
   login: {
     type: String,
-    required: true
+    required: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
-    required: true
+    required: true,
   },
   role: {
     type: String,
-    required: true
+    required: true,
   },
   sex: {
     type: String,
-    required: true
+    required: true,
   },
   address: {
     type: String,
-    required: true
+    required: true,
   },
   telephone: {
     type: String,
-    required: true
+    required: true,
   },
   dateofbirth: {
     type: Date,
-    required: true
+    required: true,
   },
   age: {
     type: Number,
-    required: true
+    required: true,
   },
 });
-
+const PatientSchema = new mongoose.Schema({
+  insurance: {
+    type: String,
+    required: true,
+  },
+  payment_method: {
+    type: String,
+    required: true,
+  },
+  blood_type: {
+    type: String,
+    required: true,
+  },
+  addictions: {
+    type: String,
+    required: true,
+  },
+  height: {
+    type: String,
+    required: true,
+  },
+  weight: {
+    type: String,
+    required: true,
+  },
+});
+// eslint-disable-next-line no-unused-vars
 const User = mongoose.model('User', UserSchema);
-
-//DOCTOR
-const DoctorSchema = new mongoose.Schema({
-  specialty: {
-    type: String,
-    required: true
-  },
-  office_address: {
-    type: String,
-    required: true
-  },
-  office_number: {
-    type: String,
-    required: true
-  },
-  doctorate: {
-    type: String,
-    required: true
-  },
-  consult_price: {
-    type: Number,
-    required: true
-  },
-  coords: {
-    type: Number,
-    required: true
-  },
-});
-
-const Doctor = mongoose.model('Doctor', DoctorSchema);
-
-//MedicalDocs
-const MedicalDocsSchema = new mongoose.Schema({
-  description: {
-    type: String,
-    required: true
-  },
-  dateofrelease: {
-    type: Date,
-    required: true
-  },
-  type: {
-    type: String,
-    required: true
-  },
-  title: {
-    type: String,
-    required: true
-  },
-});
-
-const MedicalDocs = mongoose.model('MedicalDocs', MedicalDocsSchema);
-
+// eslint-disable-next-line no-unused-vars
+const Patient = mongoose.model('User', PatientSchema);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
