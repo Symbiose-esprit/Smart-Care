@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 
 app.use('/api/appoint', AppintRouter);
 app.use('/api/medrec', MedRecRouter);
-app.use('/api/v1/doctors', doctorRouter);
-app.use('/api/v1/users', userRouter);
+app.use('/api/doctors', doctorRouter);
+app.use('/api/users', userRouter);
 
 module.exports = app;
