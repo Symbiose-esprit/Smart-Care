@@ -1,38 +1,27 @@
-/* eslint-disable no-unused-vars */
+const corsOptions = {
+  origin: 'http://localhost:8081',
+};
+
 const dotenv = require('dotenv');
-const mongoose = require('mongoose');
+const cors = require('cors');
+// const express = require('express');
+
+// const exp = express();
+const db = require('./models/index');
+
+const Role = db.role;
 
 dotenv.config({ path: './config.env' });
+
 const app = require('./app');
 
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
 );
-const Role = DB.role;
-mongoose.connect(DB, {}).then(() => console.log('DB Connected Successfully'));
 
-//MedicalDocs
-const MedicalDocsSchema = new mongoose.Schema({
-  description: {
-    type: String,
-    required: true,
-  },
-  dateofrelease: {
-    type: Date,
-    required: true,
-  },
-  type: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-});
-
-const MedicalDocs = mongoose.model('MedicalDocs', MedicalDocsSchema);
+// const Role = DB.role;
+app.use(cors(corsOptions));
 
 function initial() {
   Role.estimatedDocumentCount((err, count) => {
@@ -48,6 +37,7 @@ function initial() {
       });
       new Role({
         name: 'moderator',
+        // eslint-disable-next-line no-unused-vars
       }).save((error) => {
         if (err) {
           console.log('error', err);
@@ -56,6 +46,7 @@ function initial() {
       });
       new Role({
         name: 'admin',
+        // eslint-disable-next-line no-unused-vars
       }).save((error) => {
         if (err) {
           console.log('error', err);
@@ -65,8 +56,27 @@ function initial() {
     }
   });
 }
-require('./routes/authRoutes')(app);
-require('./routes/usersRoutes')(app);
+// mongoose.connect(DB, {}).then(() => {
+//   console.log('DB Connected Successfully');
+//   initial();
+// });
+
+db.mongoose
+  .connect(DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log('Successfully connect to MongoDB.');
+    initial();
+  })
+  .catch((err) => {
+    console.error('Connection error', err);
+    process.exit();
+  });
+
+// require('./routes/authRoutes')(exp);
+// require('./routes/usersRoutes')(exp);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {

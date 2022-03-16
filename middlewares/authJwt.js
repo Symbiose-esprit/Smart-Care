@@ -1,6 +1,5 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable no-useless-return */
 /* eslint-disable no-undef */
+
 const jwt = require('jsonwebtoken');
 
 const config = require('../config/auth.config');
@@ -9,7 +8,7 @@ const db = require('../models');
 
 const User = db.user;
 const Role = db.role;
-// eslint-disable-next-line no-undef
+
 verifyToken = (req, res, next) => {
   const token = req.headers['x-access-token'];
   if (!token) {
@@ -38,7 +37,7 @@ isAdmin = (req, res, next) => {
           res.status(500).send({ message: err });
           return;
         }
-        for (let i = 0; i < roles.length; i++) {
+        for (let i = 0; i < roles.length; i += 1) {
           if (roles[i].name === 'admin') {
             next();
             return;
@@ -74,7 +73,7 @@ isModerator = (req, res, next) => {
           }
         }
         res.status(403).send({ message: 'Require Moderator Role!' });
-        return;
+        // return;
       }
     );
   });

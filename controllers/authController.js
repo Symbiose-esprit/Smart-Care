@@ -1,20 +1,26 @@
-/* eslint-disable prefer-const */
 /* eslint-disable no-shadow */
-/* eslint-disable import/order */
-const config = require('../config/auth.config');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const db = require('../models');
+const config = require('../config/auth.config');
 
 const User = db.user;
 const Role = db.role;
 
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-
 exports.signup = (req, res) => {
+  
   const user = new User({
-    username: req.body.username,
-    email: req.body.email,
+    name: req.body.name,
+    lastname: req.body.lastname,
+    login: req.body.login,
     password: bcrypt.hashSync(req.body.password, 8),
+    email: req.body.email,
+    role: req.body.role,
+    sex: req.body.sex,
+    address: req.body.address,
+    telephone: req.body.telephone,
+    dateofbirth: req.body.dateofbirth,
+    age: req.body.age,
   });
   user.save((err, user) => {
     if (err) {
@@ -60,8 +66,9 @@ exports.signup = (req, res) => {
   });
 };
 exports.signin = (req, res) => {
+  console.log(req.body.password);
   User.findOne({
-    username: req.body.username,
+    name: req.body.name,
   })
     .populate('roles', '-__v')
     .exec((err, user) => {
@@ -72,7 +79,7 @@ exports.signin = (req, res) => {
       if (!user) {
         return res.status(404).send({ message: 'User Not found.' });
       }
-      let passwordIsValid = bcrypt.compareSync(
+      const passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
       );
@@ -82,10 +89,10 @@ exports.signin = (req, res) => {
           message: 'Invalid Password!',
         });
       }
-      let token = jwt.sign({ id: user.id }, config.secret, {
+      const token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400, // 24 hours
       });
-      let authorities = [];
+      const authorities = [];
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < user.roles.length; i++) {
         // eslint-disable-next-line prefer-template
@@ -93,7 +100,7 @@ exports.signin = (req, res) => {
       }
       res.status(200).send({
         id: user._id,
-        username: user.username,
+        name: user.name,
         email: user.email,
         roles: authorities,
         accessToken: token,

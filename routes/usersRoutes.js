@@ -1,36 +1,61 @@
-/* eslint-disable prefer-arrow-callback */
-const express = require('express');
-const UserController = require('../controllers/usersController');
-const authJwt = require('../middlewares/authJwt');
+const { authJwt } = require('../middlewares');
+const controller = require('../controllers/usersController');
 
-const router = express.Router();
 module.exports = function (app) {
-  app.use(function (req, res, next) {
+  app.use((req, res, next) => {
     res.header(
       'Access-Control-Allow-Headers',
       'x-access-token, Origin, Content-Type, Accept'
     );
     next();
   });
-  app.get('/api/test/all', UserController.allAccess);
-  app.get('/api/test/user', [authJwt.verifyToken], UserController.userBoard);
+  app.get('/test/all', controller.allAccess);
+  app.get('/test/user', [authJwt.verifyToken], controller.userBoard);
   app.get(
-    '/api/test/mod',
+    '/test/mod',
     [authJwt.verifyToken, authJwt.isModerator],
-    UserController.moderatorBoard
+    controller.moderatorBoard
   );
   app.get(
-    '/api/test/admin',
+    '/test/admin',
     [authJwt.verifyToken, authJwt.isAdmin],
-    UserController.adminBoard
+    controller.adminBoard
   );
 };
-router.route('/').get(UserController.GetAll).post(UserController.CreateUser);
 
-router
-  .route('/:id')
-  .get(UserController.GetUser)
-  .patch(UserController.UpdateUser)
-  .delete(UserController.DeleteUser);
+// /* eslint-disable prefer-arrow-callback */
+// const express = require('express');
+// const UserController = require('../controllers/usersController');
+// const authJwt = require('../middlewares/authJwt');
 
-module.exports = router;
+// const router = express.Router();
+// module.exports = function (app) {
+//   app.use(function (req, res, next) {
+//     res.header(
+//       'Access-Control-Allow-Headers',
+//       'x-access-token, Origin, Content-Type, Accept'
+//     );
+//     next();
+//   });
+//   app.get('/api/test/all', UserController.allAccess);
+//   app.get('/api/test/user', [authJwt.verifyToken], UserController.userBoard);
+//   app.get(
+//     '/api/test/mod',
+//     [authJwt.verifyToken, authJwt.isModerator],
+//     UserController.moderatorBoard
+//   );
+//   app.get(
+//     '/api/test/admin',
+//     [authJwt.verifyToken, authJwt.isAdmin],
+//     UserController.adminBoard
+//   );
+// };
+// router.route('/').get(UserController.GetAll).post(UserController.CreateUser);
+
+// router
+//   .route('/:id')
+//   .get(UserController.GetUser)
+//   .patch(UserController.UpdateUser)
+//   .delete(UserController.DeleteUser);
+
+// module.exports = router;
