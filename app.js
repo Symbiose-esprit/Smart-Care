@@ -1,8 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 
-const tourRouter = require('./routes/tourRoutes');
-const userRouter = require('./routes/userRoutes');
+const AppintRouter = require('./routes/appointRoutes');
+const MedRecRouter = require('./routes/medRecRoutes');
 
 const app = express();
 
@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 
 // Routes
 
-app.use('/api/v1/tours', tourRouter);
-app.use('/api/v1/users', userRouter);
+app.use('/api/appoint', AppintRouter);
+app.use('/api/medrec', MedRecRouter);
 
 module.exports = app;
