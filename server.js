@@ -59,33 +59,6 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-const PatientSchema = new mongoose.Schema({
-  insurance: {
-    type: String,
-    required: true,
-  },
-  payment_method: {
-    type: String,
-    required: true,
-  },
-  blood_type: {
-    type: String,
-    required: true,
-  },
-  addictions: {
-    type: String,
-    required: true,
-  },
-  height: {
-    type: String,
-    required: true,
-  },
-  weight: {
-    type: String,
-    required: true,
-  },
-});
-
 const User = mongoose.model('User', UserSchema);
 
 //DOCTOR
@@ -117,28 +90,6 @@ const DoctorSchema = new mongoose.Schema({
 });
 
 const Doctor = mongoose.model('Doctor', DoctorSchema);
-
-//MedicalDocs
-const MedicalDocsSchema = new mongoose.Schema({
-  description: {
-    type: String,
-    required: true,
-  },
-  dateofrelease: {
-    type: Date,
-    required: true,
-  },
-  type: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-});
-
-const MedicalDocs = mongoose.model('MedicalDocs', MedicalDocsSchema);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
