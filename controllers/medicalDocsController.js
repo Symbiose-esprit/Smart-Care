@@ -1,6 +1,6 @@
 const MedicalDocs = require('../models/medicalDocsModel');
 
-exports.getmedicalDocs = async (req, res) => {
+exports.getMedicalDocs = async (req, res) => {
   try {
     const medicaldocs = await MedicalDocs.find();
 
@@ -40,14 +40,11 @@ exports.getMedicalDoc = async (req, res) => {
 
 exports.CreateMedicalDoc = async (req, res) => {
   try {
-    // const newPatient = new Patient({})
-    // newPatient.save();
-
-    const newMedicalDoc = await MedicalDocs.create({}).then(req.body);
+    const newMedicalDoc = await MedicalDocs.create(req.body);
     res.status(201).json({
       status: 'success',
       data: {
-        tour: newMedicalDoc,
+        medicaldoc: newMedicalDoc,
       },
     });
   } catch (err) {
@@ -72,7 +69,7 @@ exports.UpdateMedicalDoc = async (req, res) => {
     res.status(200).json({
       status: 'success',
       data: {
-        medicaldoc,
+        medicaldoc: medicaldoc,
       },
     });
   } catch (err) {

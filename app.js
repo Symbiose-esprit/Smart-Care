@@ -5,6 +5,7 @@ const AppointRouter = require('./routes/appointRoutes');
 const MedRecRouter = require('./routes/medRecRoutes');
 const doctorRouter = require('./routes/doctorRoutes');
 const symptomRouter = require('./routes/symptomsRoutes');
+const MedicalDocsRouter = require('./routes/medicalDocsRoutes');
 
 const app = express();
 
@@ -36,5 +37,6 @@ app.use('/api/v1/appoint', AppointRouter);
 app.use('/api/v1/medrec', MedRecRouter);
 app.use('/api/v1/doctors', doctorRouter);
 app.use('/api/v1/symptoms', symptomRouter);
+app.use('/api/v1/docs', MedicalDocsRouter);
 
 module.exports = app;
