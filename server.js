@@ -1,95 +1,82 @@
-/* eslint-disable no-unused-vars */
+const corsOptions = {
+  origin: 'http://localhost:8081',
+};
+
 const dotenv = require('dotenv');
-const mongoose = require('mongoose');
-const app = require('./app');
+const cors = require('cors');
+// const express = require('express');
+
+// const exp = express();
+const db = require('./models/index');
+
+const Role = db.role;
 
 dotenv.config({ path: './config.env' });
+
+const app = require('./app');
 
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
 );
 
-mongoose.connect(DB, {}).then(() => console.log('DB Connected Successfully'));
+// const Role = DB.role;
+app.use(cors(corsOptions));
 
-const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  lastname: {
-    type: String,
-    required: true,
-  },
-  login: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  role: {
-    type: String,
-    required: true,
-  },
-  sex: {
-    type: String,
-    required: true,
-  },
-  address: {
-    type: String,
-    required: true,
-  },
-  telephone: {
-    type: String,
-    required: true,
-  },
-  dateofbirth: {
-    type: Date,
-    required: true,
-  },
-  age: {
-    type: Number,
-    required: true,
-  },
-});
+function initial() {
+  Role.estimatedDocumentCount((err, count) => {
+    if (!err && count === 0) {
+      new Role({
+        name: 'user',
+        // eslint-disable-next-line no-shadow
+      }).save((err) => {
+        if (err) {
+          console.log('error', err);
+        }
+        console.log("added 'user' to roles collection");
+      });
+      new Role({
+        name: 'moderator',
+        // eslint-disable-next-line no-unused-vars
+      }).save((error) => {
+        if (err) {
+          console.log('error', err);
+        }
+        console.log("added 'moderator' to roles collection");
+      });
+      new Role({
+        name: 'admin',
+        // eslint-disable-next-line no-unused-vars
+      }).save((error) => {
+        if (err) {
+          console.log('error', err);
+        }
+        console.log("added 'admin' to roles collection");
+      });
+    }
+  });
+}
+// mongoose.connect(DB, {}).then(() => {
+//   console.log('DB Connected Successfully');
+//   initial();
+// });
 
-const User = mongoose.model('User', UserSchema);
+db.mongoose
+  .connect(DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log('Successfully connect to MongoDB.');
+    initial();
+  })
+  .catch((err) => {
+    console.error('Connection error', err);
+    process.exit();
+  });
 
-//DOCTOR
-const DoctorSchema = new mongoose.Schema({
-  specialty: {
-    type: String,
-    required: true,
-  },
-  office_address: {
-    type: String,
-    required: true,
-  },
-  office_number: {
-    type: String,
-    required: true,
-  },
-  doctorate: {
-    type: String,
-    required: true,
-  },
-  consult_price: {
-    type: Number,
-    required: true,
-  },
-  coords: {
-    type: Number,
-    required: true,
-  },
-});
-
-const Doctor = mongoose.model('Doctor', DoctorSchema);
+// require('./routes/authRoutes')(exp);
+// require('./routes/usersRoutes')(exp);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
