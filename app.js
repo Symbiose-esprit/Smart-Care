@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 
 const AppointRouter = require('./routes/appointRoutes');
 const MedRecRouter = require('./routes/medRecRoutes');
@@ -10,6 +11,11 @@ const AppointmentRouter = require('./routes/appointmentRoutes');
 const SlotRouter = require('./routes/slotRoutes');
 
 const app = express();
+
+// cors configuration
+const corsOptions = {
+  origin: 'http://localhost:3000',
+};
 
 // Middlewares
 
@@ -30,6 +36,9 @@ app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
+
+// cors
+app.use(cors(corsOptions));
 
 // Routes
 require('./routes/usersRoutes')(app);

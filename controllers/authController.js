@@ -8,7 +8,6 @@ const User = db.user;
 const Role = db.role;
 
 exports.signup = (req, res) => {
-  
   const user = new User({
     name: req.body.name,
     lastname: req.body.lastname,

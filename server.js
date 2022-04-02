@@ -1,28 +1,16 @@
-const corsOptions = {
-  origin: 'http://localhost:8081',
-};
-
 const dotenv = require('dotenv');
-const cors = require('cors');
-// const express = require('express');
-
-// const exp = express();
 const db = require('./models/index');
+const app = require('./app');
 
 const Role = db.role;
-
 dotenv.config({ path: './config.env' });
-
-const app = require('./app');
 
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
 );
 
-// const Role = DB.role;
-app.use(cors(corsOptions));
-
+// initial function to create roles
 function initial() {
   Role.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
@@ -56,11 +44,8 @@ function initial() {
     }
   });
 }
-// mongoose.connect(DB, {}).then(() => {
-//   console.log('DB Connected Successfully');
-//   initial();
-// });
 
+// mongoDB server connection
 db.mongoose
   .connect(DB, {
     useNewUrlParser: true,
@@ -74,9 +59,6 @@ db.mongoose
     console.error('Connection error', err);
     process.exit();
   });
-
-// require('./routes/authRoutes')(exp);
-// require('./routes/usersRoutes')(exp);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
