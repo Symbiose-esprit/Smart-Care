@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('../models/users');
 
 const PatientSchema = new mongoose.Schema({
   insurance: {
@@ -25,7 +26,15 @@ const PatientSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  appointments: [{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Appointments'
+  }],
+  MedRecords:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'MedRecords',
+  }
 });
-const Patient = mongoose.model('Patient', PatientSchema);
+const Patient = User.discriminator('Patient', PatientSchema);
 
 module.exports = Patient;

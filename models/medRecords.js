@@ -23,6 +23,11 @@ const MedRecordsSchema = new mongoose.Schema({
     enum: ['Surgical', 'Medical', 'Allergies', 'Heredetary'],
     required: true,
   },
+  patient:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Patient',
+
+  },
 });
 
 const MedRecords = mongoose.model('MedRecords', MedRecordsSchema);

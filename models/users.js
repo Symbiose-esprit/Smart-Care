@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const extendSchema = require('mongoose-extend-schema');
 
 //USER
 const UserSchema = new mongoose.Schema({
@@ -48,7 +49,11 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+
 });
+
 
 const User = mongoose.model('User', UserSchema);
 module.exports = User;
+
+ 

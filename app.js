@@ -52,4 +52,6 @@ app.use('/api/v1/docs', MedicalDocsRouter);
 app.use('/api/v1/appointments', AppointmentRouter);
 app.use('/api/v1/slots', SlotRouter);
 
+
+
 module.exports = app;
