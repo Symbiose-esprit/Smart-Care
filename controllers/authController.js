@@ -8,30 +8,36 @@ const User = db.user;
 const Role = db.role;
 
 exports.signup = (req, res) => {
+  console.log(req.body)
+  //user model
   const user = new User({
     name: req.body.name,
     lastname: req.body.lastname,
-    login: req.body.login,
+    // login: req.body.login,
     password: bcrypt.hashSync(req.body.password, 8),
     email: req.body.email,
     role: req.body.role,
-    sex: req.body.sex,
-    address: req.body.address,
-    telephone: req.body.telephone,
-    dateofbirth: req.body.dateofbirth,
-    age: req.body.age,
+    // sex: req.body.sex,
+    // address: req.body.address,
+    // telephone: req.body.telephone,
+    // dateofbirth: req.body.dateofbirth,
+    // age: req.body.age,
   });
   user.save((err, user) => {
+    // in case of an error , return err
     if (err) {
+      console.log(err)
       res.status(500).send({ message: err });
-      return;
+      return ;
     }
+    // test user's role
     if (req.body.roles) {
       Role.find(
         {
           name: { $in: req.body.roles },
         },
         (err, roles) => {
+          // if user's role dosen't exist , return err
           if (err) {
             res.status(500).send({ message: err });
             return;

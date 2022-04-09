@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const extendSchema = require('mongoose-extend-schema');
 
 //USER
 const UserSchema = new mongoose.Schema({
@@ -11,10 +10,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  login: {
-    type: String,
-    required: true,
-  },
+  // login: {
+  //   type: String,
+  //   required: true,
+  // },
   password: {
     type: String,
     required: true,
@@ -31,23 +30,23 @@ const UserSchema = new mongoose.Schema({
   ],
   sex: {
     type: String,
-    required: true,
+    required: false,
   },
   address: {
     type: String,
-    required: true,
+    required: false,
   },
   telephone: {
     type: String,
-    required: true,
+    required: false,
   },
   dateofbirth: {
     type: Date,
-    required: true,
+    required: false,
   },
   age: {
     type: Number,
-    required: true,
+    required: false,
   },
 
 });

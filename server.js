@@ -1,9 +1,11 @@
 const dotenv = require('dotenv');
+dotenv.config({ path: './config.env' });
+
 const db = require('./models/index');
 const app = require('./app');
 
 const Role = db.role;
-dotenv.config({ path: './config.env' });
+
 
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
