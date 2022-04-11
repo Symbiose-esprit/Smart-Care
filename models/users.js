@@ -15,18 +15,11 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-<<<<<<< Updated upstream
-  // login: {
-  //   type: String,
-  //   required: true,
-  // },
-=======
   login: {
     type: String,
     required: true,
     unique: true,
   },
->>>>>>> Stashed changes
   password: {
     type: String,
     required: true,
@@ -69,12 +62,8 @@ const UserSchema = new mongoose.Schema({
   },
   telephone: {
     type: String,
-<<<<<<< Updated upstream
-    required: false,
-=======
     required: true,
     unique: true,
->>>>>>> Stashed changes
   },
   dateofbirth: {
     type: Date,
