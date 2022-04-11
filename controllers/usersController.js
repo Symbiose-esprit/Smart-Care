@@ -3,7 +3,10 @@ const User = require('../models/users');
 // Create
 exports.CreateUser = async (req, res) => {
   try {
-    const user = await User.create(req.body);
+    const user = await User.create(req.body, {
+      new: true,
+      runValidators: true,
+    });
 
     res.status(201).json({
       status: 'success',

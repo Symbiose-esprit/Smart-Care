@@ -98,3 +98,16 @@ exports.DeleteDoctor = async (req, res) => {
     });
   }
 };
+
+//Search
+exports.getDocByName = async (req, res) => {
+  try {
+    const searchParams = req.query;
+    console.log(searchParams);
+    const doc = await Doctor.find(searchParams);
+    if (!doc) throw Error('Error, No Doctors Found...!');
+    res.status(200).json(doc);
+  } catch (err) {
+    res.status(400).json({ msg: err });
+  }
+};

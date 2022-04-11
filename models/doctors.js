@@ -15,6 +15,7 @@ const DoctorSchema = new mongoose.Schema({
   office_number: {
     type: String,
     required: true,
+    unique: true,
   },
   doctorate: {
     type: String,
@@ -25,7 +26,7 @@ const DoctorSchema = new mongoose.Schema({
     required: true,
   },
   coords: {
-    type: Number,
+    type: String,
     required: true,
   },
   appointments: [{

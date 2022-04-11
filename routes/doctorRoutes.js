@@ -11,4 +11,6 @@ router
   .patch(DocController.UpdateDoctor)
   .delete(DocController.DeleteDoctor);
 
+router.route('/:specialty').get(DocController.getDocByName);
+
 module.exports = router;
