@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb-extended-json": "^1.11.1",
     "mongoose": "^6.2.6",
+    "mongoose-schema-extend": "^0.2.2",
     "morgan": "^1.10.0"
   },
   "devDependencies": {

@@ -18,5 +18,13 @@ module.exports = function (app) {
     ],
     controller.signup
   );
+  app.post(
+    '/signupatient',
+    [
+      verifySignUp.checkDuplicateUsernameOrEmail,
+      verifySignUp.checkRolesExisted,
+    ],
+    controller.signupatient
+  );
   app.post('/signin', controller.signin);
 };

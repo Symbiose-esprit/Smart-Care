@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const User = require('../models/users');
 
 
+
 //DOCTOR
 const DoctorSchema = new mongoose.Schema({
   specialty: {
@@ -37,3 +38,4 @@ const DoctorSchema = new mongoose.Schema({
 
 const Doctor = User.discriminator('Doctor', DoctorSchema);
 module.exports = Doctor;
+

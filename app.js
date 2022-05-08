@@ -9,6 +9,7 @@ const symptomRouter = require('./routes/symptomsRoutes');
 const MedicalDocsRouter = require('./routes/MedicalDocsRoutes');
 const AppointmentRouter = require('./routes/appointmentRoutes');
 const SlotRouter = require('./routes/slotRoutes');
+const PatientRouter = require('./routes/patientRoutes');
 
 const app = express();
 
@@ -49,6 +50,7 @@ app.use('/api/v1/symptoms', symptomRouter);
 app.use('/api/v1/docs', MedicalDocsRouter);
 app.use('/api/v1/appointments', AppointmentRouter);
 app.use('/api/v1/slots', SlotRouter);
+app.use('/api/v1/patients', PatientRouter);
 
 // hanlding unhandled routes
 app.use('*', (req, res, next) => {
