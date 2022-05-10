@@ -1,6 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const multer = require("multer");
+const path = require("path");
+const bodyParser = require("body-parser");
 
 const AppointRouter = require('./routes/appointRoutes');
 const MedRecRouter = require('./routes/medRecRoutes');
@@ -31,6 +34,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('../public/img/uploads/', express.static('../public/img/uploads/'));
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();

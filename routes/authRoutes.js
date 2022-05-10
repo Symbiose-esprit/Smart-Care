@@ -1,5 +1,6 @@
 const { verifySignUp } = require('../middlewares');
 const controller = require('../controllers/authController');
+const upload = require('../middlewares/upload');
 
 module.exports = function (app) {
   // eslint-disable-next-line prefer-arrow-callback
@@ -11,7 +12,7 @@ module.exports = function (app) {
     next();
   });
   app.post(
-    '/signup',
+    '/signup',upload.single('img'),
     [
       verifySignUp.checkDuplicateUsernameOrEmail,
       verifySignUp.checkRolesExisted,
@@ -19,7 +20,7 @@ module.exports = function (app) {
     controller.signup
   );
   app.post(
-    '/signupatient',
+    '/signupatient',upload.single('img'),
     [
       verifySignUp.checkDuplicateUsernameOrEmail,
       verifySignUp.checkRolesExisted,

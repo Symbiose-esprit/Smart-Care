@@ -73,6 +73,10 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     required: false,
   },
+  img: {
+    type: String,
+    required:true,
+  }
 
 });
 

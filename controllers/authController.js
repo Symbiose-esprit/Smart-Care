@@ -3,16 +3,17 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('../models');
 const config = require('../config/auth.config');
+const multer = require ('multer');
 
 const User = db.user;
 const Role = db.role;
 const Doctor = db.doctor;
 const Patient =db.patient;
 
+
 exports.signup = (req, res) => {
   console.log(req.body)
   //user model
-
   const user = new Doctor({
     name: req.body.name,
     lastname: req.body.lastname,
@@ -31,8 +32,17 @@ exports.signup = (req, res) => {
     doctorate:req.body.doctorate,
     consult_price:req.body.consult_price,
     coords:req.body.coords,
+    img: req.body.img,
+    
   
   });
+ /* if (req.file)  
+  {
+    console.log(req.file.path)
+    user.img = req.file.path
+    
+  }*/
+
   user.save((err, user) => {
     // in case of an error , return err
     if (err) {
@@ -102,6 +112,7 @@ exports.signupatient = (req, res) => {
     addictions:req.body.addictions,
     height:req.body.height,
     weight:req.body.weight,
+    img: req.body.img,
   
   });
   user.save((err, user) => {

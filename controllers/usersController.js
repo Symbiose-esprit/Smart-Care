@@ -1,5 +1,6 @@
 const User = require('../models/users');
 
+
 // Create
 exports.CreateUser = async (req, res) => {
   try {
